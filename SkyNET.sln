@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkyNET.Runner.CMD", "SkyNET
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkyNET.Core.Tests", "SkyNET.Core.Tests\SkyNET.Core.Tests.csproj", "{0FF415C5-8F89-4460-9238-A93E221D1366}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkyNET.Web", "SkyNET.Web\SkyNET.Web.csproj", "{B41DCEA4-8A06-4D5E-B742-DB0F4D87AB63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0FF415C5-8F89-4460-9238-A93E221D1366}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FF415C5-8F89-4460-9238-A93E221D1366}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FF415C5-8F89-4460-9238-A93E221D1366}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B41DCEA4-8A06-4D5E-B742-DB0F4D87AB63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B41DCEA4-8A06-4D5E-B742-DB0F4D87AB63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B41DCEA4-8A06-4D5E-B742-DB0F4D87AB63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B41DCEA4-8A06-4D5E-B742-DB0F4D87AB63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
