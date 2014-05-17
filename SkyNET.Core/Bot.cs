@@ -5,14 +5,19 @@ namespace SkyNET
     public class Bot
     {
         private readonly BotConfiguration _Configuration;
+        private readonly IChatClient _Client;
         private readonly ILogger _Logger;
 
-        public Bot(BotConfiguration configuration, ILogger logger = null)
+        public Bot(BotConfiguration configuration, IChatClient client, ILogger logger = null)
         {
             if (configuration == null)
                 throw new ArgumentNullException("configuration");
 
+            if (client == null)
+                throw new ArgumentNullException("client");
+
             _Configuration = configuration;
+            _Client = client;
             _Logger = logger ?? new VoidLogger();
         }
 
@@ -21,7 +26,7 @@ namespace SkyNET
             _Logger.LogMessage("Starting chat bot");
             try
             {
-                Logon();
+                Login();
                 return 0;
             }
             catch (Exception ex)
@@ -36,10 +41,10 @@ namespace SkyNET
             }
         }
 
-        private void Logon()
+        private void Login()
         {
-            _Logger.LogMessage("Logging on as {0}", _Configuration.LoginEmailAddress);
-            throw new InvalidOperationException("Logon failed, invalid credentials");
+            _Logger.LogMessage("Logging in as {0}", _Configuration.Credentials.Username);
+            _Client.Login(_Configuration.Credentials);
         }
     }
 }
