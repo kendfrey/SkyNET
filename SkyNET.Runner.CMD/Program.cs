@@ -1,12 +1,16 @@
-﻿using SkyNET.Core;
-
-namespace SkyNET.Runner.CMD
+﻿namespace SkyNET.Runner.CMD
 {
     class Program
     {
-        static void Main(string[] args)
+        static int Main()
         {
-            new Bot().Run(new ConsoleLogger());
+            // TODO: Load configuration from file instead
+            // TODO: Decide where/how to save that file
+            var configuration = new BotConfiguration();
+            configuration.LoginEmailAddress = "someone@online.com";
+            configuration.LoginPassword = "somePassword";
+
+            return new Bot(configuration, new ConsoleLogger()).Run();
         }
     }
 }

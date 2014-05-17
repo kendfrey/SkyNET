@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.IO;
 
-namespace SkyNET.Core
+namespace SkyNET
 {
     public class ConsoleLogger : ILogger
     {
