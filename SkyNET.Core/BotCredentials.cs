@@ -25,7 +25,8 @@ namespace SkyNET
             Username = username;
             Password = password;
         }
-
+        
+        // TODO: Load from the JSON method rather than this one - Just wanted to get something working
         public static BotCredentials LoadFromFile(string fileName)
         {
             try

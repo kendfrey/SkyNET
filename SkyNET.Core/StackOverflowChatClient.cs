@@ -8,32 +8,14 @@ namespace SkyNET
 
     public class StackOverflowChatClient : IChatClient
     {
-        public bool IsLoggedIn { get; private set; }
-
         private Client Client { get; set; }
-        private string FKey { get; set;}
-
-        private ILogger _logger { get; set; }
-
+        private string FKey { get; set; }
 
         public async void Login(BotCredentials credentials)
         {
             Client = new Client();
-
-            try
-            {
-                _logger.LogMessage("Logging in to Stack Exchange");
-                await LoginToStackExchange(credentials);
-
-                _logger.LogMessage("Logging in to Stack Overflow");
-                await LoginToStackOverflow();
-                this.IsLoggedIn = true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error logging in to Stack Overflow: {0} \r\n Stack Trace: {1}", ex.Message, ex);
-                this.IsLoggedIn = false;
-            }
+            await LoginToStackExchange(credentials);
+            await LoginToStackOverflow();
         }
 
         public void EnterRoom(string room)
