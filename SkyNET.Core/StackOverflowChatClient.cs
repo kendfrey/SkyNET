@@ -20,7 +20,6 @@ namespace SkyNET
             {
                 LoginToStackExchange(credentials);
                 LoginToStackOverflow();
-                EnterRoom("");
                 IsLoggedIn = true;
             }
             catch
@@ -32,18 +31,21 @@ namespace SkyNET
 
         public void EnterRoom(string room)
         {
-            Response response = Client.Request("http://chat.stackoverflow.com/rooms/53848/sky-net-development").Get();
+            //Hard coded to the SkyNet Development chat for now
+            // TODO: Find a way to invite the bot to any room.
+            Response response = Client.Request("http://chat.stackoverflow.com/rooms/53848/").Get();
             Fkey = GetFKeyFromHtml(response.Content);
         }
 
         public void LeaveRoom(string room)
         {
-            throw new System.NotImplementedException();
+            Response response = Client.Request(string.Format("http://chat.stackoverflow.com/rooms/{0}/leave", room)).Get();
         }
 
         public void SendMessage(string message, string room)
         {
-            throw new System.NotImplementedException();
+            string form = string.Format("text={0}&fkey={1}", Uri.EscapeDataString(message), Fkey);
+            Response response = Client.Request(string.Format("http://chat.stackoverflow.com/chats/{0}/messages/new", room)).Post(form, "application/x-www-form-urlencoded");
         }
 
         private void LoginToStackExchange(BotCredentials credentials)
