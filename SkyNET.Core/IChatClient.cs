@@ -9,6 +9,8 @@ namespace SkyNET
         void LeaveRoom(string room);
         void SendMessage(string message, string room);
 
+        bool IsLoggedIn { get; set; }
+
         event EventHandler<MessageReceivedEventArgs> MessageReceived;
         event EventHandler<UserEnteredEventArgs> UserEntered;
         event EventHandler<UserLeftEventArgs> UserLeft;

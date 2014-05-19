@@ -9,18 +9,31 @@ namespace SkyNET
     public class StackOverflowChatClient : IChatClient
     {
         private Client Client { get; set; }
-        private string FKey { get; set; }
+        public bool IsLoggedIn { get; set; }
 
-        public async void Login(BotCredentials credentials)
+        private string Fkey { get; set; }
+
+        public void Login(BotCredentials credentials)
         {
             Client = new Client();
-            await LoginToStackExchange(credentials);
-            await LoginToStackOverflow();
+            try
+            {
+                LoginToStackExchange(credentials);
+                LoginToStackOverflow();
+                EnterRoom("");
+                IsLoggedIn = true;
+            }
+            catch
+            {
+                IsLoggedIn = false;
+                throw;
+            }
         }
 
         public void EnterRoom(string room)
         {
-            throw new System.NotImplementedException();
+            Response response = Client.Request("http://chat.stackoverflow.com/rooms/53848/sky-net-development").Get();
+            Fkey = GetFKeyFromHtml(response.Content);
         }
 
         public void LeaveRoom(string room)
@@ -33,20 +46,20 @@ namespace SkyNET
             throw new System.NotImplementedException();
         }
 
-        private async Task LoginToStackExchange(BotCredentials credentials)
+        private void LoginToStackExchange(BotCredentials credentials)
         {
-            Response loginResponse = await Client.Request("https://openid.stackexchange.com/account/login/").Get();
+            Response loginResponse = Client.Request("https://openid.stackexchange.com/account/login/").Get();
             string fkey = GetFKeyFromHtml(loginResponse.Content);
             string form = string.Format("email={0}&password={1}&fkey={2}", Uri.EscapeDataString(credentials.Username), Uri.EscapeDataString(credentials.Password), fkey);
-            await Client.Request("https://openid.stackexchange.com/account/login/submit/").Post(form, "application/x-www-form-urlencoded");
+            Client.Request("https://openid.stackexchange.com/account/login/submit/").Post(form, "application/x-www-form-urlencoded");
         }
 
-        private async Task LoginToStackOverflow()
+        private void LoginToStackOverflow()
         {
-            Response loginResponse = await Client.Request("http://stackoverflow.com/users/login/").Get();
+            Response loginResponse = Client.Request("http://stackoverflow.com/users/login/").Get();
             string fkey = GetFKeyFromHtml(loginResponse.Content);
             string form = string.Format("openid_identifier={0}&fkey={1}", Uri.EscapeDataString("https://openid.stackexchange.com/"), fkey);
-            await Client.Request("http://stackoverflow.com/users/authenticate/").Post(form, "application/x-www-form-urlencoded");
+            Client.Request("http://stackoverflow.com/users/authenticate/").Post(form, "application/x-www-form-urlencoded");
         }
 
         private string GetFKeyFromHtml(string html)
