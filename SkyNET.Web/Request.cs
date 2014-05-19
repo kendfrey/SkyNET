@@ -17,12 +17,12 @@ namespace SkyNET.Web
             HttpRequest = request;
         }
 
-        public async Task<Response> Get()
+        public Response Get()
         {
-            return new Response(await HttpRequest.GetResponseAsync() as HttpWebResponse);
+            return new Response(HttpRequest.GetResponse() as HttpWebResponse);
         }
 
-        public async Task<Response> Post(string content, string contentType)
+        public Response Post(string content, string contentType)
         {
             HttpRequest.Method = "POST";
             HttpRequest.ContentLength = content.Length;
@@ -32,7 +32,7 @@ namespace SkyNET.Web
             {
                 writer.Write(content);
             }
-            return new Response(await HttpRequest.GetResponseAsync() as HttpWebResponse);
+            return new Response(HttpRequest.GetResponse() as HttpWebResponse);
         }
 
     }

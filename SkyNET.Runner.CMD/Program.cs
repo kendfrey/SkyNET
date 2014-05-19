@@ -9,7 +9,7 @@
             var configuration = new BotConfiguration();
 
             //Added ability to load from text file - Need to discuss the FromJson method
-            configuration.Credentials = BotCredentials.LoadFromFile(@"C:\Users\Evan\Documents\credentials.txt");
+            configuration.Credentials = BotCredentials.LoadFromFile(@"C:\Users\Elewis\desktop\credentials.txt");
 
             //configuration.Credentials.Username = "someone@online.com";
             //configuration.Credentials.Password = "somePassword";

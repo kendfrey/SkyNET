@@ -21,12 +21,20 @@ namespace SkyNET
             _Logger = logger ?? new VoidLogger();
         }
 
+        // TODO: Obvoiusly we want to leave the bot online after Run() is called - This is just a test of the Client Functionality
         public int Run()
         {
             _Logger.LogMessage("Starting chat bot");
             try
             {
+                _Logger.LogMessage("Logging in to the Chat Host");
                 Login();
+                _Logger.LogMessage("Entering the SkyNet Development room");
+                this._Client.EnterRoom("53848");
+                _Logger.LogMessage("Sending a test Message to the room");
+                this._Client.SendMessage("Testing full lifecycle", "53848");
+                _Logger.LogMessage("Leaving the room");
+                this._Client.LeaveRoom("53848");
                 return 0;
             }
             catch (Exception ex)
