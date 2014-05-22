@@ -32,7 +32,8 @@ namespace SkyNET
                 _Logger.LogMessage("Entering the SkyNet Development room");
                 this._Client.EnterRoom("53848");
                 _Logger.LogMessage("Sending a test Message to the room");
-                this._Client.SendMessage("Testing full lifecycle", "53848");
+                this._Client.SendMessage("Test sending message from the bot", "53848");
+                //this._Client.SendMessage("Oh Hai!", "7");
                 _Logger.LogMessage("Leaving the room");
                 this._Client.LeaveRoom("53848");
                 return 0;
